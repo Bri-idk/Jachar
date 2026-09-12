@@ -29,7 +29,7 @@ public class Main {
         boolean run = true;
 
         while (run){
-            System.out.print("Opciones disponibles\n1 - Leer\n2 - Escribir\n");
+            System.out.print("Opciones disponibles\n1 - Leer\n2 - Escribir\n3 - Editar\n 4 - Salir");
             opcion = leerOpcion("Ingresa una opcion: ");
             switch (opcion) {
                 case 1 -> {
@@ -42,6 +42,14 @@ public class Main {
                     System.out.print("Ingresa el texto que quieres guardar: ");
                     String text = entradaUsr.nextLine();
                     escritor(location, text);
+                    run = false;
+                }
+                case 3 ->{
+                    System.out.print("sin editor aun");
+                    run = false;
+                }
+                case 4 -> {
+                    System.out.print("Hasta luego!");
                     run = false;
                 }
                 default -> System.out.print("Opcion no valida");

@@ -9,7 +9,7 @@ Jachar is an open-source, lightweight text editor written in Java. Created as a 
 
 - Initial commit -> Commit with the MIT license
 - Project base -> this commit actully begins with a full fucntional basic base. Everything begins somewere i guess. 
-
+- Code modularized and read function added -> idk maybe reading the name gives you an idea XD
 ---
 
 ## Tecnical documentation
