@@ -13,6 +13,10 @@ public class WindowManager {
 
     //* Func de crear ventana
     public static void createWindow(){
+        try{
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }catch (Exception e){
+        }
         window = new JFrame("JaChar");
         window.setSize(1080, 980);
         window.setResizable(true);
@@ -21,6 +25,10 @@ public class WindowManager {
 
     public static void confScrollArea(){
         area = new JTextArea();
+        area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        area.setMargin(new Insets(10, 10, 10 , 10));
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true); //* esto corta las palabras enteras para no dejarnos por cachos el texto
         var scroll = new JScrollPane(area);
         window.add(scroll, BorderLayout.CENTER);
     }
@@ -49,6 +57,7 @@ public class WindowManager {
     }
 
     public static void window(){
+
         createWindow();
         confScrollArea();
         confBtnBar();
