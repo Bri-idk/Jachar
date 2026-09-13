@@ -8,6 +8,27 @@
 
 ---
 
+---
+## So what is this project?
+
+<strong>
+
+Okay so, that was the "formal" description of the project, but the reality is that this is purely a learning project. It might evolve, but right now my main goal is simply to build up the knowledge to tackle more complex software later on.
+
+You’re helping me immensely just by checking it out and leaving feedback—this definitely isn't a tool you need, but getting your input is something I genuinely need to grow as a developer.
+
+I’m pouring a lot of time into this and loving every minute of it, so seeing people stop by to help out really keeps me motivated.
+
+Huge thanks for your time, and a special shoutout to the Together Java community for all the support!
+
+Btw if you would like to read a more personal documentation pls go to de readme on the docs Folder or see my GitHub pages view. 
+
+</strong>
+
+
+
+---
+
 ## 📥 Download Executables
 
 You can download the pre-compiled standalone version directly without cloning the code:
