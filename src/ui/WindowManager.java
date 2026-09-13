@@ -3,6 +3,8 @@ import java.nio.file.Path;
 import javax.swing.*;
 import java.awt.*;
 
+import ui.*;
+
 import io.FileManager;
 
 public class WindowManager {
@@ -10,6 +12,9 @@ public class WindowManager {
     public static Path currentPath = null;
     private static JFrame window;
     private static JTextArea area;
+    private static boolean isDark = false;
+    private static JButton btnOpenFile, btnNewFile, btnSave, btnTheme;
+    private static JPanel panel;
 
     //* Func de crear ventana
     public static void createWindow(){
@@ -25,23 +30,34 @@ public class WindowManager {
 
     public static void confScrollArea(){
         area = new JTextArea();
-        area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        area.setMargin(new Insets(10, 10, 10 , 10));
-        area.setLineWrap(true);
-        area.setWrapStyleWord(true); //* esto corta las palabras enteras para no dejarnos por cachos el texto
+        Stylizer.stylizerArea(area);
         var scroll = new JScrollPane(area);
         window.add(scroll, BorderLayout.CENTER);
     }
 
     public static void confBtnBar(){
-        var upperBar = new JPanel();
-        window.add(upperBar, BorderLayout.NORTH);
-        var btnOpenFile = new JButton("Abrir");
-        var btnNewFile = new JButton("Nuevo archivo");
-        var btnSave = new JButton("Guardar");
-        upperBar.add(btnOpenFile);
-        upperBar.add(btnNewFile);
-        upperBar.add(btnSave);
+         panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
+        window.add(panel, BorderLayout.NORTH);
+         btnOpenFile = new JButton("Abrir");
+         btnNewFile = new JButton("Nuevo archivo");
+         btnSave = new JButton("Guardar");
+         btnTheme = new JButton("Cambiar tema");
+
+        Stylizer.stylizerBtn(btnNewFile);
+
+        Stylizer.stylizerBtn(btnOpenFile);
+
+        Stylizer.stylizerBtn(btnSave);
+
+        Stylizer.stylizerBtn(btnTheme);
+
+        Stylizer.stylizePanel(panel);
+
+
+        panel.add(btnOpenFile);
+        panel.add(btnNewFile);
+        panel.add(btnSave);
+        panel.add(btnTheme);
 
         btnOpenFile.addActionListener(e -> {
             openFile();
@@ -54,6 +70,16 @@ public class WindowManager {
         btnNewFile.addActionListener(e -> {
             newFile();
         });
+
+        btnTheme.addActionListener(e -> {
+            if(!isDark){
+                isDark = true;
+                changeTheme(isDark);
+            }else{
+                isDark =false;
+                changeTheme(isDark);
+            }
+        });
     }
 
     public static void window(){
@@ -61,49 +87,39 @@ public class WindowManager {
         createWindow();
         confScrollArea();
         confBtnBar();
-
+        changeTheme(isDark);
 
 
         //? Hacemos visible la ventana
         window.setVisible(true);
     }
 
-    public static void openFile(){
-        var selector = new JFileChooser();
-        int resultado = selector.showOpenDialog(window);
-        if (resultado == JFileChooser.APPROVE_OPTION){
-            currentPath = selector.getSelectedFile().toPath();
-            String contenido = FileManager.reader(currentPath);
-            area.setText(contenido);
-        }
-    }
-
     public static void save(){
         if(currentPath != null){
-                String text = area.getText();
-                boolean saved = FileManager.writer(currentPath, text);
-                if (saved){
-                    JOptionPane.showMessageDialog(
-                            window,
-                            "Salvado correctamente",
-                            "Confirm",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                }else{
-                    JOptionPane.showMessageDialog(
-                            window,
-                            "Error al salvar",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
+            String text = area.getText();
+            boolean saved = FileManager.writer(currentPath, text);
+            if (saved){
+                JOptionPane.showMessageDialog(
+                        window,
+                        "Salvado correctamente",
+                        "Confirm",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }else{
+                JOptionPane.showMessageDialog(
+                        window,
+                        "Error al salvar",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
 
         }else{
-            var selector = new JFileChooser();
-            int resultado = selector.showSaveDialog(window);
-            if(resultado == JFileChooser.APPROVE_OPTION){
+            var dialog = new FileDialog(window, "Guardar", FileDialog.SAVE);
+            dialog.setVisible(true);
+            if(dialog.getFile() != null){
                 String text = area.getText();
-                currentPath = selector.getSelectedFile().toPath();
+                currentPath = Path.of(dialog.getDirectory(), dialog.getFile());
                 boolean saved = FileManager.writer(currentPath, text);
                 if (saved){
                     JOptionPane.showMessageDialog(
@@ -124,9 +140,24 @@ public class WindowManager {
         }
 
     }
-
+    public static void openFile(){
+        var dialog = new FileDialog(window, "Abrir", FileDialog.LOAD);
+        dialog.setVisible(true);
+        if (dialog.getFile() != null){
+            currentPath = Path.of(dialog.getDirectory(), dialog.getFile());
+            String contenido = FileManager.reader(currentPath);
+            area.setText(contenido);
+        }
+    }
     public static void newFile(){
         currentPath = null;
         area.setText("");
+    }
+    public static void changeTheme(boolean isDark){
+        if(isDark){
+            Stylizer.putDarkMode(area, panel,btnNewFile, btnSave, btnOpenFile, btnTheme);
+        }else{
+            Stylizer.putWhiteMode(area, panel, btnNewFile, btnSave, btnOpenFile, btnTheme);
+        }
     }
 }
