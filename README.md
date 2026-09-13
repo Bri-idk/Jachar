@@ -1,16 +1,32 @@
 # JACHAR
 
+[![Latest Release](https://img.shields.io/github/v/release/Bri-idk/Jachar?color=2ea44f&label=Latest%20Release&logo=github)](https://github.com/Bri-idk/Jachar/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Bri-idk/Jachar/total?color=blueviolet)](https://github.com/Bri-idk/Jachar/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > **Jachar is an open-source, lightweight text editor written in pure Java.** Created as a hands-on initiative to master Java fundamentals and Object-Oriented Programming (OOP), this project is designed with modularity and simplicity in mind—serving as a solid foundation for future enhancements, tooling integrations, and interface improvements.
+
+---
+
+## 📥 Download Executables
+
+You can download the pre-compiled standalone version directly without cloning the code:
+
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest_Release-2ea44f?style=for-the-badge&logo=github)](https://github.com/Bri-idk/Jachar/releases/latest)
+
+- **Windows**: Download `Jachar-windows.zip` (includes standalone `.exe`, no Java required).
+- **Linux / Mac**: Download `Jachar.jar` (run with `java -jar Jachar.jar`).
 
 ---
 
 ## Features (Current MVP)
 
-- **Pure Java (Zero Dependencies)**: Built entirely using standard Java 21 (`java.nio.file` and `javax.swing`).
-- **Dynamic File Explorer**: Native file chooser (`JFileChooser`) to open and save files anywhere on your system.
+- **Pure Java (Zero Dependencies)**: Built entirely using standard Java 21 (`java.nio.file`, `javax.swing`, `java.awt`).
+- **Native OS File Explorer**: Integrated `java.awt.FileDialog` for instant, zero-lag browsing using your native OS file dialog.
 - **Smart Save Workflow**:
   - Direct save if a file is already opened/known.
   - Automatic *Save As* dialog prompt if working on a new untitled note.
+- **Dynamic Theme Switcher**: Runtime toggle between clean White and Dark modes with custom styling in `Stylizer`.
 - **Clean Canvas Reset**: "Nuevo archivo" instantly clears the editor and resets the state.
 - **Decoupled Architecture**: File I/O operations (`FileManager`) are completely separated from the UI logic (`WindowManager`).
 
@@ -25,7 +41,7 @@
 
 ---
 
-## How to Run
+## How to Run from Source
 
 1. **Clone the repository**:
    ```bash
@@ -61,7 +77,8 @@ This was honestly a crazy learning curve, but now I understand how the Event Dis
 As you can see if you read the code or check the commit history, I deleted part of the old console code (like the `utils` scanner package and line-by-line edit prompts) because on this version it was pointless and unnecessary—the `JTextArea` itself *is* the editor. But that code will live on in the `terminal_Version` branch!
 
 #### UI Version Change History:
-- **First Push & Merge**: Fully functional UI with Open, Save (smart direct save vs dialog), and New File buttons, backed by a clean 26-line `FileManager`. I mean, it might look a little bit retro/simple, but it works!
+- **v0.1**: Initial functional UI with Open, Save, and New File buttons backed by a clean 26-line `FileManager`.
+- **v0.2**: Migrated to native `FileDialog` for instant 0ms performance, added dark/light theme switching with Java varargs, and improved Windows rendering.
 
 ---
 
