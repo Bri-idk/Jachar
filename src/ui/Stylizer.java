@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Stylizer {
-    public static void stylizerBtn(JButton btn){
+    public static void stylizerBtn(JMenuItem btn){
         btn.setFocusPainted(false);
-        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        //btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btn.setContentAreaFilled(false); //*bug de windows
@@ -20,34 +20,34 @@ public class Stylizer {
         area.setWrapStyleWord(true);
     }
 
-    public static void stylizePanel(JPanel panel) {
-        panel.setBackground(Color.GRAY);
+    public static void stylizePanel(JMenuBar menuBar) {
+        menuBar.setBackground(Color.GRAY);
     }
 
-    public static void putWhiteMode(JTextArea area,  JPanel panel, JButton... btns){
+    public static void putWhiteMode(JTextArea area,  JMenuBar menuBar, JMenuItem... btns){
         Color negro = new Color(45,45,48);
-        for(JButton btn : btns){
+        for(JMenuItem btn : btns){
             btn.setBackground(Color.WHITE);
             btn.setForeground(negro);
         }
         area.setBackground(Color.WHITE);
         area.setForeground(negro);
         area.setCaretColor(negro);
-        panel.setBackground(Color.WHITE);
-        panel.setForeground(negro);
+        menuBar.setBackground(Color.WHITE);
+        menuBar.setForeground(negro);
 
     }
-    public static void putDarkMode(JTextArea area, JPanel panel, JButton... btns){
+    public static void putDarkMode(JTextArea area, JMenuBar menuBar, JMenuItem... btns){
         Color negro = new Color(45,45,48);
-        for(JButton btn : btns) {
+        for(JMenuItem btn : btns) {
             btn.setBackground(negro);
             btn.setForeground(Color.WHITE);
         }
         area.setBackground(negro);
         area.setForeground(Color.WHITE);
         area.setCaretColor(Color.WHITE);
-        panel.setBackground(negro);
-        panel.setForeground(Color.WHITE);
+        menuBar.setBackground(negro);
+        menuBar.setForeground(Color.WHITE);
     }
 
 

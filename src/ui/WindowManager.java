@@ -12,9 +12,10 @@ public class WindowManager {
     private final JFrame window;
     private final JScrollPane scroll;
     private final JTextArea area;
-    private final JPanel panel;
+    private final JMenuBar menuBar;
+    private final JMenu menu, menuAppearance;
     private boolean isDark;
-    private JButton btnOpenFile, btnNewFile, btnSave, btnTheme;
+    private JMenuItem btnOpenFile, btnNewFile, btnSave, btnTheme;
 
     public WindowManager(){
         try{
@@ -29,7 +30,9 @@ public class WindowManager {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         area = new JTextArea();
-        panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        menuBar = new JMenuBar();
+        menu = new JMenu("File");
+        menuAppearance = new JMenu("Appearance");
         scroll = new JScrollPane(area);
 
         initUI();
@@ -37,34 +40,35 @@ public class WindowManager {
     }
 
     private void initUI(){
-        // Área central
-        Stylizer.stylizerArea(area);
-        window.add(scroll, BorderLayout.CENTER);
 
-        // Barra superior
-        window.add(panel, BorderLayout.NORTH);
-        btnOpenFile = new JButton("Open File");
-        btnNewFile = new JButton("New File");
-        btnSave = new JButton("Save");
-        btnTheme = new JButton("Change Theme");
+        Stylizer.stylizerArea(area);
+
+        window.add(scroll, BorderLayout.CENTER);
+        window.add(menuBar, BorderLayout.NORTH);
+        btnOpenFile = new JMenuItem("Open File");
+        btnNewFile = new JMenuItem("New File");
+        btnSave = new JMenuItem("Save");
+        btnTheme = new JMenuItem("Change Theme");
 
         Stylizer.stylizerBtn(btnNewFile);
         Stylizer.stylizerBtn(btnOpenFile);
         Stylizer.stylizerBtn(btnSave);
         Stylizer.stylizerBtn(btnTheme);
-        Stylizer.stylizePanel(panel);
+        Stylizer.stylizePanel(menuBar);
 
-        panel.add(btnOpenFile);
-        panel.add(btnNewFile);
-        panel.add(btnSave);
-        panel.add(btnTheme);
+        menuBar.add(menu);
+        menuBar.add(menuAppearance);
+        menu.add(btnOpenFile);
+        menu.add(btnNewFile);
+        menu.add(btnSave);
+        menuAppearance.add(btnTheme);
 
         // Listeners
         btnOpenFile.addActionListener(e -> openFile());
         btnSave.addActionListener(e -> save());
         btnNewFile.addActionListener(e -> newFile());
         btnTheme.addActionListener(e -> {
-            isDark = !isDark; // Alternancia directa sin if/else redundante
+            isDark = !isDark;
             changeTheme(isDark);
         });
 
@@ -117,9 +121,9 @@ public class WindowManager {
 
     public void changeTheme(boolean isDark) {
         if (isDark) {
-            Stylizer.putDarkMode(area, panel, btnNewFile, btnSave, btnOpenFile, btnTheme);
+            Stylizer.putDarkMode(area, menuBar, menu, menuAppearance ,btnNewFile,btnSave, btnOpenFile, btnTheme);
         } else {
-            Stylizer.putWhiteMode(area, panel, btnNewFile, btnSave, btnOpenFile, btnTheme);
+            Stylizer.putWhiteMode(area, menuBar, menu, menuAppearance , btnNewFile, btnSave, btnOpenFile, btnTheme);
         }
     }
 
