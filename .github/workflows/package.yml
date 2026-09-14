@@ -33,7 +33,6 @@ jobs:
             --input JarDir `
             --main-jar app.jar `
             --main-class Main `
-            --win-console false `
             --dest dist
 
       - name: Upload artifact
