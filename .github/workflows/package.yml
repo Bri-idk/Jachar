@@ -1,0 +1,42 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Compile and create JAR
+        run: |
+          mkdir out -ErrorAction SilentlyContinue
+          mkdir JarDir -ErrorAction SilentlyContinue
+          javac -d out (Get-ChildItem -Recurse -Filter *.java src | Select-Object -ExpandProperty FullName)
+          jar --create --file JarDir/app.jar --main-class Main -C out .
+
+      - name: Create EXE with jpackage
+        run: |
+          jpackage `
+            --type app-image `
+            --name JaChar `
+            --input JarDir `
+            --main-jar app.jar `
+            --main-class Main `
+            --dest dist
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JaChar
+          path: dist/JaChar
