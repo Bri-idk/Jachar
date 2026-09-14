@@ -17,7 +17,7 @@ public class Stylizer {
         area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
         area.setMargin(new Insets(10, 10, 10 , 10));
         area.setLineWrap(true);
-        area.setWrapStyleWord(true); //* esto corta las palabras enteras para no dejarnos por cachos el texto
+        area.setWrapStyleWord(true);
     }
 
     public static void stylizePanel(JPanel panel) {

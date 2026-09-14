@@ -36,4 +36,4 @@ So put this "zen mode" on my IDE and I started to code, because the best way to 
 
 ## Special section
 
-I want to give special thanks to the TogetherJava community and Ethan McCue from the TogetherJava Discord that gives me the advice of making my own readmes, thanks man!
+I want to give special thanks to the TogetherJava community, especially to Ethan McCue and Sooluckyseven, both of them from the TogetherJava Discord. They have given me the best feedback!
