@@ -55,6 +55,9 @@ public class WindowManager {
         Stylizer.stylizerBtn(btnSave);
         Stylizer.stylizerBtn(btnTheme);
         Stylizer.stylizePanel(menuBar);
+        Stylizer.stylizerMenu(menu);
+        Stylizer.stylizerMenu(menuAppearance);
+        Stylizer.stylizerMenuBar(menuBar);
 
         menuBar.add(menu);
         menuBar.add(menuAppearance);

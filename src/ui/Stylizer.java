@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicMenuBarUI;
 import java.awt.*;
 
 public class Stylizer {
@@ -11,6 +13,17 @@ public class Stylizer {
         btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btn.setContentAreaFilled(false); //*bug de windows
         btn.setOpaque(true);//*respeta diseño
+    }
+
+    public static void stylizerMenu(JMenu menu){
+        menu.setContentAreaFilled(false);
+        menu.setOpaque(true);
+    }
+
+    public static void stylizerMenuBar(JMenuBar menuBar){
+        menuBar.setUI(new BasicMenuBarUI());
+        menuBar.setOpaque(true);
+        menuBar.setBorder(new EmptyBorder(0,0,0,0));
     }
 
     public static void stylizerArea(JTextArea area){
