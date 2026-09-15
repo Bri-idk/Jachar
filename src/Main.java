@@ -1,14 +1,11 @@
 
 //!My packages
-import ui.WindowManager;
+import javafx.application.Application;
+import ui.App;
 
-import javax.swing.*;
 
-public class Main {
+public class Main{
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            WindowManager app = new WindowManager();
-            app.show();
-        });
+        Application.launch(App.class, args);
     }
 }

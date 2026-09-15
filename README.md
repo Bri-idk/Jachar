@@ -100,6 +100,8 @@ As you can see if you read the code or check the commit history, I deleted part 
 #### UI Version Change History:
 - **v0.1**: Initial functional UI with Open, Save, and New File buttons backed by a clean 26-line `FileManager`.
 - **v0.2**: Migrated to native `FileDialog` for instant 0ms performance, added dark/light theme switching with Java varargs, and improved Windows rendering.
+- **v0.3**: Migrated from button panel to classic desktop menu bar (`JMenuBar` / `JMenu`), customized menu UI delegates with `BasicMenuBarUI`, and added GitHub Actions CI/CD pipeline using JDK 21 `jpackage` to automate standalone Windows `.exe` releases.
+
 
 ---
 
