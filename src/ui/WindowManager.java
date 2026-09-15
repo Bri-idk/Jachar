@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.scene.Scene;
-
 import java.io.File;
 import java.nio.file.Path;
 import javafx.scene.control.*;
@@ -13,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import io.FileManager;
+import ui.Stylizer.*;
 
 public class WindowManager {
     //new instances
@@ -22,7 +22,8 @@ public class WindowManager {
     private final MenuBar menuBar;
     private final Menu file, appearance;
     private final TextArea area;
-    private final MenuItem btnOpenFile, btnNewFile, btnSave, btnTheme;
+    private final MenuItem btnOpenFile, btnNewFile, btnSave, btnTheme, btnFont, btnChangeFontSize;
+    public boolean isDarker = false;
 
     public WindowManager(Stage stage){
         this.window = stage;
@@ -35,6 +36,8 @@ public class WindowManager {
         btnNewFile = new MenuItem("New File");
         btnSave = new MenuItem("Save");
         btnTheme = new MenuItem("Change theme");
+        btnFont = new MenuItem("Change Font");
+        btnChangeFontSize = new MenuItem("Change font size");
 
         initUI();
         show();
@@ -48,7 +51,7 @@ public class WindowManager {
 
         menuBar.getMenus().addAll(file, appearance);
         file.getItems().addAll(btnNewFile, btnOpenFile, btnSave);
-        appearance.getItems().addAll(btnTheme);
+        appearance.getItems().addAll(btnTheme, btnFont, btnChangeFontSize);
 
         Scene sceneMain = new Scene(root, 1080, 720);
         window.setScene(sceneMain);
@@ -57,7 +60,12 @@ public class WindowManager {
         btnNewFile.setOnAction(e -> newFile());
         btnOpenFile.setOnAction(e -> openFile());
         btnSave.setOnAction(e -> save());
-        btnTheme.setOnAction(e -> changeTheme());
+        btnTheme.setOnAction(e -> {
+            isDarker = !isDarker;
+            Stylizer.changeTheme(sceneMain, isDarker);
+        });
+        btnFont.setOnAction(e -> Stylizer.changeFont(area));
+        btnChangeFontSize.setOnAction(e -> Stylizer.changeFontSize(area));
     }
 
     public void show(){
@@ -102,10 +110,6 @@ public class WindowManager {
         }
     }
 
-    public void changeTheme(){
-
-    }
-
     public void notifyUser(boolean saved){
         Alert alert;
         if(saved){
@@ -121,4 +125,5 @@ public class WindowManager {
         }
         alert.showAndWait();
     }
+
 }

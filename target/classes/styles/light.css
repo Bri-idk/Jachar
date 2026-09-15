@@ -1,0 +1,17 @@
+.root {
+    -fx-base: #f4f4f4;
+    -fx-background-color: #ffffff;
+    -fx-control-inner-background : #ffffff;
+}
+.text-area {
+    -fx-text-fill: black;
+    -fx-background-insets : 0;
+    -fx-background-radius : 0;
+    -fx-border-width: 0;
+}
+
+.text-area .content {
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}

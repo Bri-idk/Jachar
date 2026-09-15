@@ -1,67 +1,59 @@
 package ui;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicMenuBarUI;
-import java.awt.*;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import java.util.Optional;
+import java.net.URL;
+import java.util.List;
 
 public class Stylizer {
-    public static void stylizerBtn(JMenuItem btn){
-        btn.setFocusPainted(false);
-        //btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        btn.setContentAreaFilled(false); //*bug de windows
-        btn.setOpaque(true);//*respeta diseño
+    private static final String  pathDark = resolvePath("/styles/dark.css");
+    private static final String pathLight = resolvePath("/styles/light.css");
+    private int sizeFont;
+    private static String resolvePath(String path){
+        URL resource = Stylizer.class.getResource(path);
+        assert resource != null;
+        return resource.toExternalForm();
     }
 
-    public static void stylizerMenu(JMenu menu){
-        menu.setContentAreaFilled(false);
-        menu.setOpaque(true);
-    }
+    public static void changeTheme(Scene scene, boolean isDarker){
+        String selectedTheme = isDarker ? pathDark : pathLight;
+        List<String> styleList = scene.getStylesheets();
 
-    public static void stylizerMenuBar(JMenuBar menuBar){
-        menuBar.setUI(new BasicMenuBarUI());
-        menuBar.setOpaque(true);
-        menuBar.setBorder(new EmptyBorder(0,0,0,0));
-    }
-
-    public static void stylizerArea(JTextArea area){
-        area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
-        area.setMargin(new Insets(10, 10, 10 , 10));
-        area.setLineWrap(true);
-        area.setWrapStyleWord(true);
-    }
-
-    public static void stylizePanel(JMenuBar menuBar) {
-        menuBar.setBackground(Color.GRAY);
-    }
-
-    public static void putWhiteMode(JTextArea area,  JMenuBar menuBar, JMenuItem... btns){
-        Color negro = new Color(45,45,48);
-        for(JMenuItem btn : btns){
-            btn.setBackground(Color.WHITE);
-            btn.setForeground(negro);
+        if(styleList.isEmpty()){
+            styleList.add(selectedTheme);
+        }else{
+            styleList.set(0, selectedTheme);
         }
-        area.setBackground(Color.WHITE);
-        area.setForeground(negro);
-        area.setCaretColor(negro);
-        menuBar.setBackground(Color.WHITE);
-        menuBar.setForeground(negro);
-
-    }
-    public static void putDarkMode(JTextArea area, JMenuBar menuBar, JMenuItem... btns){
-        Color negro = new Color(45,45,48);
-        for(JMenuItem btn : btns) {
-            btn.setBackground(negro);
-            btn.setForeground(Color.WHITE);
-        }
-        area.setBackground(negro);
-        area.setForeground(Color.WHITE);
-        area.setCaretColor(Color.WHITE);
-        menuBar.setBackground(negro);
-        menuBar.setForeground(Color.WHITE);
     }
 
+    public static void changeFont(TextArea area){
+        List<String> fontList = Font.getFamilies();
+        String currentFont = area.getFont().getName();
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>( currentFont, fontList);
+        dialog.setTitle("Chose font");
+        dialog.initOwner(area.getScene().getWindow());
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent( font -> {
+            double size = area.getFont().getSize();
+            area.setFont(Font.font(font, size));
+        });
+    }
+
+    public static void changeFontSize(TextArea area){
+        List<Integer> sizeList = List.of(12,14,16,18,20,24,28,36,48);
+        int currentSize = (int) area.getFont().getSize();
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>( currentSize, sizeList);
+        dialog.setTitle("Chose font size");
+        dialog.initOwner(area.getScene().getWindow());
+        Optional<Integer> result = dialog.showAndWait();
+        result.ifPresent( font -> {
+            String currentFont= area.getFont().getFamily();
+            area.setFont(Font.font(currentFont, font));
+        });
+    }
 
 }
