@@ -18,19 +18,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Compile and create JAR
+
+      - name: Build with Maven
         run: |
-          mkdir out -ErrorAction SilentlyContinue
-          mkdir JarDir -ErrorAction SilentlyContinue
-          javac -d out (Get-ChildItem -Recurse -Filter *.java src | Select-Object -ExpandProperty FullName)
-          jar --create --file JarDir/app.jar --main-class Main -C out .
+          mvn clean package dependency:copy-dependencies
+          copy target\editor-texto-1.0-SNAPSHOT.jar target\dependency\app.jar
 
       - name: Create EXE with jpackage
         run: |
           jpackage `
             --type app-image `
             --name JaChar `
-            --input JarDir `
+            --input target/dependency `
             --main-jar app.jar `
             --main-class Main `
             --dest dist
