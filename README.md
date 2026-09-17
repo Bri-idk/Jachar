@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/github/downloads/Bri-idk/Jachar/total?color=blueviolet)](https://github.com/Bri-idk/Jachar/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Jachar is an open-source, lightweight text editor written in pure Java.** Created as a hands-on initiative to master Java fundamentals and Object-Oriented Programming (OOP), this project is designed with modularity and simplicity in mind—serving as a solid foundation for future enhancements, tooling integrations, and interface improvements.
+> **Jachar is an open-source, lightweight text editor written in Java and built with JavaFX & Maven.** Created as a hands-on initiative to master Java fundamentals, Object-Oriented Programming (OOP), and modern desktop GUI frameworks, this project is designed with modularity and simplicity in mind.
 
 ---
 
@@ -25,83 +25,93 @@ Btw if you would like to read a more personal documentation pls go to de readme 
 
 </strong>
 
-
-
 ---
 
 ## 📥 Download Executables
 
-You can download the pre-compiled standalone version directly without cloning the code:
+You can download pre-compiled standalone versions directly from Releases:
 
 [![Download Latest Release](https://img.shields.io/badge/Download-Latest_Release-2ea44f?style=for-the-badge&logo=github)](https://github.com/Bri-idk/Jachar/releases/latest)
 
-- **Windows**: Download `Jachar-windows.zip` (includes standalone `.exe`, no Java required).
-- **Linux / Mac**: Download `Jachar.jar` (run with `java -jar Jachar.jar`).
+- **Windows**: Download `JaChar.zip` (includes standalone native `.exe` generated with `jpackage`, no Java installation required).
+- **Executable JAR**: Download `Jachar-1.0-SNAPSHOT-jar-with-dependencies.jar` (run on any platform with `java -jar <filename>.jar`).
 
 ---
 
-## Features (Current MVP)
+## Features (Current MVP - NEW 0.3)
 
-- **Pure Java (Zero Dependencies)**: Built entirely using standard Java 21 (`java.nio.file`, `javax.swing`, `java.awt`).
-- **Native OS File Explorer**: Integrated `java.awt.FileDialog` for instant, zero-lag browsing using your native OS file dialog.
+- **Modern JavaFX 22 GUI**: Rebuilt using `Application`, `Stage`, `Scene`, `BorderPane`, and `TextArea`.
+- **Decoupled Architecture**: File I/O operations (`FileManager`) are completely separated from UI presentation (`WindowManager` and `Stylizer`).
+- **Dynamic CSS Theme Engine**: Real-time atomic switching between Dark and Light themes via external `.css` stylesheets without UI flicker.
+- **Dynamic OS Font & Size Picker**: Interactively select font families installed on your OS via `Font.getFamilies()` and adjust font sizes with native `ChoiceDialog`.
 - **Smart Save Workflow**:
   - Direct save if a file is already opened/known.
-  - Automatic *Save As* dialog prompt if working on a new untitled note.
-- **Dynamic Theme Switcher**: Runtime toggle between clean White and Dark modes with custom styling in `Stylizer`.
-- **Clean Canvas Reset**: "Nuevo archivo" instantly clears the editor and resets the state.
-- **Decoupled Architecture**: File I/O operations (`FileManager`) are completely separated from the UI logic (`WindowManager`).
+  - Automatic *Save As* dialog prompt via JavaFX `FileChooser` if working on a new untitled note.
+- **Clean Canvas Reset**: "New File" instantly clears the editor and resets the active file path.
 
 ---
 
-## Tech Stack & Requirements
+## 🛠️ Tech Stack & Dependencies
 
 - **Language**: Java 21 (JDK 21+)
-- **GUI Framework**: Java Swing & AWT (Standard Library)
-- **I/O Engine**: Java NIO (`Files`, `Path`)
-- **IDE**: IntelliJ IDEA (or any Java-compatible editor)
+- **Build Tool**: Apache Maven (`pom.xml`)
+- **GUI Framework**: JavaFX 22.0.2 (`org.openjfx:javafx-controls`)
+- **I/O Engine**: Java NIO (`java.nio.file.Files`, `java.nio.file.Path`)
+- **Maven Plugins**:
+  - `maven-compiler-plugin` (Target JDK 21)
+  - `maven-assembly-plugin` (Generates Fat JAR with dependencies)
+- **CI/CD Pipeline**: GitHub Actions (`windows-latest`) using `jpackage` to automate standalone `.exe` releases.
 
 ---
 
-## How to Run from Source
+## 🚀 How to Run & Build from Source
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Bri-idk/Jachar.git
-   cd Jachar
-   ```
+### 1. Clone the repository
+```bash
+git clone https://github.com/Bri-idk/Jachar.git
+cd Jachar
+```
 
-2. **Open & Run**:
-   - Open the project in **IntelliJ IDEA** (or your favorite IDE).
-   - Ensure the Project SDK is set to **JDK 21**.
-   - Run `src/Main.java`.
+### 2. Run directly in development (Maven)
+```bash
+mvn javafx:run
+```
 
-3. **Or run via terminal**:
-   ```bash
-   javac -d out src/io/*.java src/ui/*.java src/Main.java
-   java -cp out Main
-   ```
+### 3. Build the Executable Fat JAR
+```bash
+mvn clean package
+```
+This produces two JARs in the `target/` directory:
+- `target/editor-texto-1.0-SNAPSHOT-jar-with-dependencies.jar` (Executable Fat JAR with JavaFX + CSS included).
+
+Run it with:
+```bash
+java -jar target/editor-texto-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
 
 ---
 
-## Project History & Evolution
+## 📜 Project History & Evolution
 
 ### Base Project (Console / CLI)
 - **Initial commit** -> Setup with the MIT license.
-- **Project base** -> Minimal functional base for writing/appending to text files via CLI. Everything begins somewhere, I guess.
+- **Project base** -> Minimal functional CLI base for writing/appending to text files via terminal.
 - **Code modularized & read function added** -> Extracted functions, added line-by-line editing in memory (`Files.readAllLines`), and input validation.
-- **Branching** -> Created `uiBranch` for the visual version, and kept the terminal version logic on `terminal_Version` for later on making a full Vim/Nano-like CLI editor.
 
-### UI Version
-This version of the software is fully oriented to making a graphical UI using **Java Swing / AWT**.
-This was honestly a crazy learning curve, but now I understand how the Event Dispatch Thread, listeners, and components work together!
+### UI Versions
 
-As you can see if you read the code or check the commit history, I deleted part of the old console code (like the `utils` scanner package and line-by-line edit prompts) because on this version it was pointless and unnecessary—the `JTextArea` itself *is* the editor. But that code will live on in the `terminal_Version` branch!
-
-#### UI Version Change History:
+#### Swing Era:
 - **v0.1**: Initial functional UI with Open, Save, and New File buttons backed by a clean 26-line `FileManager`.
-- **v0.2**: Migrated to native `FileDialog` for instant 0ms performance, added dark/light theme switching with Java varargs, and improved Windows rendering.
-- **v0.3**: Migrated from button panel to classic desktop menu bar (`JMenuBar` / `JMenu`), customized menu UI delegates with `BasicMenuBarUI`, and added GitHub Actions CI/CD pipeline using JDK 21 `jpackage` to automate standalone Windows `.exe` releases.
+- **v0.2**: Migrated to native `FileDialog`, added dark/light theme switching with Java varargs, and improved Windows rendering.
+- **v0.3**: Added classic desktop menu bar (`JMenuBar` / `JMenu`), customized menu UI delegates with `BasicMenuBarUI`, and added GitHub Actions CI/CD pipeline using JDK 21 `jpackage` to automate standalone Windows `.exe` releases.
 
+#### JavaFX Era:
+- **NEW 0.3**: Major architecture evolution!
+  - Adopted Maven (`pom.xml`) for modern build lifecycle and dependency management.
+  - Migrated GUI to **JavaFX 22.0.2** (`Application`, `Stage`, `Scene`).
+  - Rebuilt `Stylizer` into a CSS-based theme manager with atomic stylesheet swaps (`dark.css` / `light.css`).
+  - Integrated dynamic font and font-size dialogs using `ChoiceDialog` and `Font.getFamilies()`.
+  - Updated GitHub Actions CI/CD to package Maven output into standalone Windows `.exe` releases.
 
 ---
 
@@ -109,8 +119,8 @@ As you can see if you read the code or check the commit history, I deleted part 
 
 Since this is a learning project, I would love to hear feedback from other developers! Specifically:
 
-1. **Decoupling**: How clean is the separation between `FileManager` (I/O) and `WindowManager` (Swing UI)?
-2. **State Management**: How would you manage the active file state (`currentPath`) as the editor scales?
-3. **Swing Best Practices**: Any suggestions on layouts, event listeners, or threading?
+1. **JavaFX & CSS Separation**: How clean is the theme management in `Stylizer` using external CSS stylesheets?
+2. **State & I/O Decoupling**: Thoughts on keeping `FileManager` purely static and decoupled from JavaFX components?
+3. **Packaging & Architecture**: Any suggestions for JavaFX modularization, scaling layout components, or custom CSS styling?
 
 Feel free to open an **Issue**, submit a **Pull Request**, or share your thoughts!
