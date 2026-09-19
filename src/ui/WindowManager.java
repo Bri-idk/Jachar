@@ -3,17 +3,20 @@ package ui;
 import io.FileManager;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Optional;
 
 public class WindowManager {
 
     private static final String APP_NAME = "JaChar";
+    private static final String ICON_RESOURCE = "/assets/jachar_logo.png";
 
     private Path currentPath = null;
     private boolean isDarker = false;
@@ -46,6 +49,10 @@ public class WindowManager {
 
     private void initUI() {
         updateTitle();
+        URL iconUrl = WindowManager.class.getResource(ICON_RESOURCE);
+        if (iconUrl != null) {
+            window.getIcons().add(new Image(iconUrl.toExternalForm()));
+        }
 
         root.setTop(menuBar);
         root.setCenter(area);
@@ -103,7 +110,8 @@ public class WindowManager {
     }
 
     private void newFile() {
-        if (isDirty && !confirmDiscardChanges()) return;
+        if (isDirty && !confirmDiscardChanges())
+            return;
 
         currentPath = null;
         area.clear();
@@ -112,7 +120,8 @@ public class WindowManager {
     }
 
     private void openFile() {
-        if (isDirty && !confirmDiscardChanges()) return;
+        if (isDirty && !confirmDiscardChanges())
+            return;
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
@@ -138,7 +147,8 @@ public class WindowManager {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
             File file = fileChooser.showSaveDialog(window);
-            if (file == null) return;
+            if (file == null)
+                return;
             currentPath = file.toPath();
         }
 

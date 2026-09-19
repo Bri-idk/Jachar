@@ -19,6 +19,7 @@
                 </directory>
                 <includes>
                     <include>**/*.css</include>
+                    <include>assets/jachar_logo.png</include>
                 </includes>
             </resource>
         </resources>

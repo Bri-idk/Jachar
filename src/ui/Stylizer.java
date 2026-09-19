@@ -7,14 +7,14 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public final class Stylizer {
 
     private static final String PATH_DARK = resolvePath("/styles/dark.css");
     private static final String PATH_LIGHT = resolvePath("/styles/light.css");
 
-    private Stylizer() {}
+    private Stylizer() {
+    }
 
     private static String resolvePath(String path) {
         URL resource = Stylizer.class.getResource(path);
