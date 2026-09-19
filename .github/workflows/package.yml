@@ -2,7 +2,7 @@ name: Build Windows EXE
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     tags: ["v*"]
   workflow_dispatch:
 
@@ -16,8 +16,8 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: "temurin"
+          java-version: "21"
 
       - name: Build with Maven
         run: |
@@ -32,6 +32,7 @@ jobs:
             --input target/dependency `
             --main-jar app.jar `
             --main-class Main `
+            --icon src/assets/favicon.ico `
             --dest dist
 
       - name: Upload artifact
