@@ -1,5 +1,9 @@
 # JACHAR
 
+<p align="center">
+  <img src="src/assets/jachar_logo.png" alt="JaChar logo" width="240">
+</p>
+
 [![Latest Release](https://img.shields.io/github/v/release/Bri-idk/Jachar?color=2ea44f&label=Latest%20Release&logo=github)](https://github.com/Bri-idk/Jachar/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/Bri-idk/Jachar/total?color=blueviolet)](https://github.com/Bri-idk/Jachar/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
