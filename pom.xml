@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tuusuario</groupId>
-    <artifactId>editor-texto</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.bri-idk</groupId>
+    <artifactId>JaChar</artifactId>
+    <version>JC-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -19,7 +19,7 @@
                 </directory>
                 <includes>
                     <include>**/*.css</include>
-                    <include>assets/jachar_logo.png</include>
+                    <include>assets/**</include>
                 </includes>
             </resource>
         </resources>

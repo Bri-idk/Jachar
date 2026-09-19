@@ -22,7 +22,7 @@ jobs:
       - name: Build with Maven
         run: |
           mvn clean package dependency:copy-dependencies
-          copy target\editor-texto-1.0-SNAPSHOT.jar target\dependency\app.jar
+          copy target\JaChar-SNAPSHOT.jar target\dependency\app.jar
 
       - name: Create EXE with jpackage
         run: |
@@ -32,7 +32,7 @@ jobs:
             --input target/dependency `
             --main-jar app.jar `
             --main-class Main `
-            --icon src/assets/favicon.ico `
+            --icon src/assets/jachar_logoFondo.ico `
             --dest dist
 
       - name: Upload artifact
