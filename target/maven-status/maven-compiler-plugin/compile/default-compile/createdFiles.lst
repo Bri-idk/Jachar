@@ -1,5 +1,6 @@
-ui/WindowManager.class
 ui/Stylizer.class
-Main.class
+ui/Theme.class
 ui/App.class
 io/FileManager.class
+ui/WindowManager.class
+Main.class

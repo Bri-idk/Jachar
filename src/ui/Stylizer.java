@@ -4,33 +4,34 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
-import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 
 public final class Stylizer {
-
-    private static final String PATH_DARK = resolvePath("/styles/dark.css");
-    private static final String PATH_LIGHT = resolvePath("/styles/light.css");
 
     private Stylizer() {
     }
 
-    private static String resolvePath(String path) {
-        URL resource = Stylizer.class.getResource(path);
-        Objects.requireNonNull(resource, "No se encontró la hoja de estilos: " + path);
-        return resource.toExternalForm();
-    }
-
-    public static void changeTheme(Scene scene, boolean isDarker) {
-        String selectedTheme = isDarker ? PATH_DARK : PATH_LIGHT;
+    public static void changeTheme(Scene scene, Theme theme) {
         List<String> stylesheets = scene.getStylesheets();
+        String selectedTheme = theme.getStylesheet();
 
         if (stylesheets.isEmpty()) {
             stylesheets.add(selectedTheme);
         } else {
             stylesheets.set(0, selectedTheme);
         }
+    }
+
+    public static Theme chooseTheme(Scene scene, Theme currentTheme) {
+        ChoiceDialog<Theme> dialog = new ChoiceDialog<>(currentTheme, Theme.values());
+        dialog.setTitle("Choose theme");
+        dialog.setHeaderText(null);
+        dialog.initOwner(scene.getWindow());
+
+        return dialog.showAndWait().map(theme -> {
+            changeTheme(scene, theme);
+            return theme;
+        }).orElse(currentTheme);
     }
 
     public static void changeFont(TextArea area) {

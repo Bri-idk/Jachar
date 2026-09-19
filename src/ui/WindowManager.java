@@ -19,7 +19,7 @@ public class WindowManager {
     private static final String ICON_RESOURCE = "/assets/jachar_logo.png";
 
     private Path currentPath = null;
-    private boolean isDarker = false;
+    private Theme currentTheme = Theme.LIGHT;
     private boolean isDirty = false;
 
     private final Stage window;
@@ -74,10 +74,7 @@ public class WindowManager {
         btnNewFile.setOnAction(e -> newFile());
         btnOpenFile.setOnAction(e -> openFile());
         btnSave.setOnAction(e -> save());
-        btnTheme.setOnAction(e -> {
-            isDarker = !isDarker;
-            Stylizer.changeTheme(sceneMain, isDarker);
-        });
+        btnTheme.setOnAction(e -> currentTheme = Stylizer.chooseTheme(sceneMain, currentTheme));
         btnFont.setOnAction(e -> Stylizer.changeFont(area));
         btnChangeFontSize.setOnAction(e -> Stylizer.changeFontSize(area));
 
