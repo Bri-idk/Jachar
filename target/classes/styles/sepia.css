@@ -16,3 +16,21 @@
     -fx-background-color: #f4e8c1;
     -fx-text-fill: #433422;
 }
+
+.window-title-bar {
+    -fx-background-color: #e8d5ad;
+}
+.window-control-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-text-fill: #433422;
+    -fx-font-size: 15px;
+}
+.window-control-button:hover {
+    -fx-background-color: rgba(67, 52, 34, 0.12);
+    -fx-effect: dropshadow(gaussian, rgba(67, 52, 34, 0.22), 8, 0.18, 0, 2);
+}
+.window-close-button:hover {
+    -fx-background-color: rgba(196, 43, 43, 0.78);
+    -fx-text-fill: white;
+}

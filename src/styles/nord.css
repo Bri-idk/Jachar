@@ -16,3 +16,20 @@
     -fx-background-color: #3b4252;
     -fx-text-fill: #eceff4;
 }
+
+.window-title-bar {
+    -fx-background-color: #2e3440;
+}
+.window-control-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-text-fill: #eceff4;
+    -fx-font-size: 15px;
+}
+.window-control-button:hover {
+    -fx-background-color: rgba(236, 239, 244, 0.14);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 8, 0.18, 0, 2);
+}
+.window-close-button:hover {
+    -fx-background-color: rgba(196, 43, 43, 0.78);
+}

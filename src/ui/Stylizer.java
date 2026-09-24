@@ -5,6 +5,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import java.util.List;
+import java.util.Optional;
 
 public final class Stylizer {
 
@@ -34,22 +35,24 @@ public final class Stylizer {
         }).orElse(currentTheme);
     }
 
-    public static void changeFont(TextArea area) {
+    public static Optional<String> changeFont(TextArea area) {
         List<String> fontList = Font.getFamilies();
-        String currentFont = area.getFont().getName();
+        String currentFont = area.getFont().getFamily();
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(currentFont, fontList);
         dialog.setTitle("Choose font");
         dialog.setHeaderText(null);
         dialog.initOwner(area.getScene().getWindow());
 
-        dialog.showAndWait().ifPresent(font -> {
+        Optional<String> selectedFont = dialog.showAndWait();
+        selectedFont.ifPresent(font -> {
             double size = area.getFont().getSize();
             area.setFont(Font.font(font, size));
         });
+        return selectedFont;
     }
 
-    public static void changeFontSize(TextArea area) {
+    public static Optional<Integer> changeFontSize(TextArea area) {
         List<Integer> sizeList = List.of(12, 14, 16, 18, 20, 24, 28, 36, 48);
         int currentSize = (int) area.getFont().getSize();
 
@@ -58,9 +61,11 @@ public final class Stylizer {
         dialog.setHeaderText(null);
         dialog.initOwner(area.getScene().getWindow());
 
-        dialog.showAndWait().ifPresent(size -> {
+        Optional<Integer> selectedSize = dialog.showAndWait();
+        selectedSize.ifPresent(size -> {
             String currentFont = area.getFont().getFamily();
             area.setFont(Font.font(currentFont, size));
         });
+        return selectedSize;
     }
 }

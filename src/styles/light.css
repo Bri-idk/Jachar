@@ -15,3 +15,21 @@
     -fx-background-color: white;
     -fx-text-fill: black;
 }
+
+.window-title-bar {
+    -fx-background-color: #e5e5e5;
+}
+.window-control-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-text-fill: #333333;
+    -fx-font-size: 15px;
+}
+.window-control-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.10);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.20), 8, 0.18, 0, 2);
+}
+.window-close-button:hover {
+    -fx-background-color: rgba(196, 43, 43, 0.78);
+    -fx-text-fill: white;
+}
